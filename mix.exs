@@ -19,7 +19,7 @@ defmodule Drill.Mixfile do
   def application do
     [mod: {Drill, []},
      applications: [:phoenix, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :postgrex, :ibrowse]]
   end
 
   # Specifies which paths to compile per environment.
@@ -36,7 +36,12 @@ defmodule Drill.Mixfile do
      {:phoenix_html, "~> 2.3"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
      {:gettext, "~> 0.9"},
-     {:cowboy, "~> 1.0"}]
+     {:cowboy, "~> 1.0"},
+
+     {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.2"},
+     {:exjsx, "~> 3.1.0"},
+     {:tesla, github: "monterail/tesla", branch: "master"}
+   ]
   end
 
   # Aliases are shortcut or tasks specific to the current project.

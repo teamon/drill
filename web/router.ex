@@ -19,8 +19,9 @@ defmodule Drill.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Drill do
-  #   pipe_through :api
-  # end
+  scope "/api", Drill do
+    pipe_through :api
+
+    resources "/sources", SourcesController
+  end
 end

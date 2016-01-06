@@ -13,15 +13,26 @@ module.exports = {
     filename: "js/[name].js"
   },
   module: {
-    loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader", query: { presets: ["es2015", "stage-0", "react"] } },
-      { test: /\.css$/, loader: extract.extract("css") }
-    ]
+    loaders: [{
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: "babel-loader",
+      query: {
+        presets: ["es2015", "stage-0", "react"],
+        plugins: ['transform-runtime']
+      }
+    }, {
+      test: /\.css$/,
+      loader: extract.extract("style-loader", "css-loader")
+    }]
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin("lib", "js/lib.js"),
     new extract("css/[name].css"),
     new copy([{from: "./web/static/assets"}]),
     new clean(['./priv/static']),
-  ]
+  ],
+  resolve: {
+    root: (__dirname + "/web/static")
+  }
 };
