@@ -13,7 +13,7 @@ config :drill, Drill.Endpoint,
   cache_static_lookup: false,
   check_origin: false,
   watchers: [node: ["node_modules/webpack/bin/webpack.js",
-                    "--watch-stdin", "--progress", "--colors"]]
+                    "--watch-stdin", "--colors"]]
 
 # Watch static and templates for browser reloading.
 config :drill, Drill.Endpoint,
