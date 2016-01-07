@@ -1,25 +1,52 @@
 import React from 'react'
+import { connect } from 'react-redux'
+
 import {Container, Row, Col} from "./grid"
+
 import SourcesList    from "./SourcesList"
 import SourceBrowser  from "./SourceBrowser"
 import NewSource      from "./NewSource"
+import Button         from "./Button"
 
-import Button from "./Button"
-import {actions} from "../actions"
+import { fetchSources, selectSource } from "../actions"
 
-export default class App extends React.Component {
+class App extends React.Component {
+  handleReloadSources = () => {
+    this.props.dispatch(fetchSources())
+  }
+
+  componentDidMount(){
+    this.props.dispatch(fetchSources())
+  }
+
+  handleSourceSelect = (source) => {
+    this.props.dispatch(selectSource(source))
+  }
+
   render(){
     return <Container>
       <Row>
         <Col s={2}>
-          <SourcesList/>
-          <NewSource/>
-          <Button onClick={actions.loadSources}>Reload Sources</Button>
+          <SourcesList
+            sources={this.props.sources}
+            selected={this.props.selectedSource}
+            onSourceSelect={this.handleSourceSelect}/>
+          <Button onClick={this.handleReloadSources}>Reload Sources</Button>
         </Col>
         <Col s={10}>
-          <SourceBrowser/>
+          <SourceBrowser
+            source={this.props.selectedSource}
+            data={this.props.selectedSourceData}/>
         </Col>
       </Row>
     </Container>
   }
 }
+
+export default connect(function(state){
+  return {
+    sources: state.sources,
+    selectedSource: state.selectedSource,
+    selectedSourceData: state.selectedSourceData
+  }
+})(App)

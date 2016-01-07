@@ -1,41 +1,42 @@
-import keyMirror from "fbjs/lib/keyMirror"
-import AppDispatcher from "./AppDispatcher"
+import API from "./services/API"
 
-export const types = keyMirror({
-  // queries results
-  RECV_SOURCES_LIST: null,
-  RECV_SOURCE_DATA: null,
+function requestSources(){
+  return { type: "REQUEST_SOURCES" };
+}
 
-  // commands
-  LOAD_SOURCES: null,
-  SELECT_SOURCE: null,
-});
+function receiveSources(sources){
+  return { type: "RECEIVE_SOURCES", sources };
+}
 
-export const actions = {
-  loadSources: function(){
-    AppDispatcher.handleAction({
-      type: types.LOAD_SOURCES
-    })
-  },
+export function fetchSources(){
+  return dispatch => {
+    dispatch(requestSources())
+    API.sources.list().then(sources =>
+      dispatch(receiveSources(sources))
+    )
+  }
+}
 
-  receiveSourcesList: function(data){
-    AppDispatcher.handleAction({
-      type: types.RECV_SOURCES_LIST,
-      data: data
-    })
-  },
+function requestSourceData(sourceId){
+  return { type: "REQUEST_SOURCE_DATA", sourceId };
+}
 
-  receiveSourceData: function(data){
-    AppDispatcher.handleAction({
-      type: types.RECV_SOURCE_DATA,
-      data: data
-    })
-  },
+function receiveSourceData(sourceId, data){
+  return { type: "RECEIVE_SOURCE_DATA", sourceId, data };
+}
 
-  selectSource: function(source){
-    AppDispatcher.handleAction({
-      type: types.SELECT_SOURCE,
-      data: source
-    })
+export function fetchSourceData(sourceId){
+  return dispatch => {
+    dispatch(requestSourceData(sourceId))
+    API.sources.get(sourceId).then(({data}) =>
+      dispatch(receiveSourceData(sourceId, data))
+    )
+  }
+}
+
+export function selectSource(source){
+  return dispatch => {
+    dispatch({ type: "SELECT_SOURCE", source })
+    dispatch(fetchSourceData(source.id))
   }
 }

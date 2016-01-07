@@ -12,14 +12,18 @@
     "copy-webpack-plugin": "^0.3.3",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.0",
+    "redux-devtools": "^3.0.1",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.9",
     "webpack-sources": "^0.1.0"
   },
   "dependencies": {
-    "flux": "^2.1.1",
     "react": "^0.14.5",
     "react-dom": "^0.14.5",
+    "react-redux": "^4.0.6",
+    "redux": "^3.0.5",
+    "redux-logger": "^2.3.1",
+    "redux-thunk": "^1.0.3",
     "xr": "^0.1.15"
   }
 }
