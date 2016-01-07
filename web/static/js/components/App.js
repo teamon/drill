@@ -4,6 +4,9 @@ import SourcesList    from "./SourcesList"
 import SourceBrowser  from "./SourceBrowser"
 import NewSource      from "./NewSource"
 
+import Button from "./Button"
+import {actions} from "../actions"
+
 export default class App extends React.Component {
   render(){
     return <Container>
@@ -11,6 +14,7 @@ export default class App extends React.Component {
         <Col s={2}>
           <SourcesList/>
           <NewSource/>
+          <Button onClick={actions.loadSources}>Reload Sources</Button>
         </Col>
         <Col s={10}>
           <SourceBrowser/>

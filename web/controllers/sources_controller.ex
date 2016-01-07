@@ -27,6 +27,14 @@ defmodule Drill.SourcesController do
       params: %{
         url: "http://jsonplaceholder.typicode.com/todos"
       }
+    },
+    %{
+      id: "ds3",
+      name: "Posts",
+      type: "http+json",
+      params: %{
+        url: "http://jsonplaceholder.typicode.com/posts"
+      }
     }
   ]
 

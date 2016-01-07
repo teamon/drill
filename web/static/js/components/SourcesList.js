@@ -10,7 +10,8 @@ export default class SourcesList extends FluxComponent {
     super(props);
 
     this.flux([SourcesStore], props => ({
-      sources: SourcesStore.getSources()
+      sources: SourcesStore.getSources(),
+      selected: SourcesStore.getSelected()
     }))
 
     actions.loadSources()
@@ -23,9 +24,9 @@ export default class SourcesList extends FluxComponent {
   render(){
     return <div>
       {this.state.sources.map((source) =>
-        <div className="source" key={source.id}>
+        <div className={"source" + (this.state.selected == source ? " source-selected" : "")} key={source.id}>
           {source.name}
-          <Button onClick={this.handleSelect.bind(this, source)}>Browse</Button>
+          <Button onClick={this.handleSelect.bind(this, source)} disabled={this.state.loading}>Browse</Button>
         </div>
       )}
     </div>
