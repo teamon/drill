@@ -10,7 +10,12 @@ import Button         from "./Button"
 
 import { fetchSources, selectSource } from "../actions"
 
-class App extends React.Component {
+@connect(state => ({
+  sources: state.sources,
+  selectedSource: state.selectedSource,
+  selectedSourceData: state.selectedSourceData
+}))
+export default class App extends React.Component {
   handleReloadSources = () => {
     this.props.dispatch(fetchSources())
   }
@@ -42,11 +47,3 @@ class App extends React.Component {
     </Container>
   }
 }
-
-export default connect(function(state){
-  return {
-    sources: state.sources,
-    selectedSource: state.selectedSource,
-    selectedSourceData: state.selectedSourceData
-  }
-})(App)

@@ -1,3 +1,7 @@
 import 'react'
 import 'react-dom'
+import 'redux'
+import 'redux-thunk'
+import 'redux-logger'
+import 'react-redux'
 import 'xr'
