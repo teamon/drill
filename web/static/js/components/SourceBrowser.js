@@ -8,14 +8,15 @@ export default class SourceBrowser extends FluxComponent {
   constructor(props){
     super(props);
     this.flux([SourcesStore], props => ({
-      source: SourcesStore.getSelected()
+      source: SourcesStore.getSelected(),
+      data: SourcesStore.getSelectedData()
     }))
   }
 
   render(){
     if(this.state.source){
       return <div>
-        {this.state.source.data ? <Table data={this.state.source.data}/> : "Loading..."}
+        {this.state.data ? <Table data={this.state.data}/> : "Loading..."}
       </div>
     } else {
       return null;

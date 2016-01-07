@@ -22,9 +22,11 @@ export default class SourcesList extends FluxComponent {
   }
 
   render(){
+    const sourceSelected = (source) => this.state.selected && this.state.selected.id == source.id
+
     return <div>
       {this.state.sources.map((source) =>
-        <div className={"source" + (this.state.selected == source ? " source-selected" : "")} key={source.id}>
+        <div className={"source" + (sourceSelected(source) ? " source-selected" : "")} key={source.id}>
           {source.name}
           <Button onClick={this.handleSelect.bind(this, source)} disabled={this.state.loading}>Browse</Button>
         </div>

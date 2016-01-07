@@ -7,13 +7,16 @@ import API from "../services/API"
 const state = {
   sources: [],
   selected: null,
+  selectedData: [],
 
   setSelected: function(source){ this.selected = source; },
+  setSelectedData: function(data){ this.selectedData = data; },
   setSources: function(sources){ this.sources = sources; }
 };
 
 export default new class SourceStore extends Store {
   getSelected(){ return state.selected; }
+  getSelectedData(){ return state.selectedData; }
   getSources(){ return state.sources; }
 
   handleAction(payload){
@@ -25,17 +28,15 @@ export default new class SourceStore extends Store {
         break;
 
       case types.RECV_SOURCE_DATA:
-        state.setSelected(action.data);
+        state.setSelectedData(action.data);
         break;
 
       case types.SELECT_SOURCE:
-        let source = action.data;
+        state.setSelected(action.data);
+        state.setSelectedData(null);
 
-        state.setSelected(source);
-
-        API.sources.get(action.data.id).then(s => {
-          source.data = s.data
-          actions.receiveSourceData(source)
+        API.sources.get(action.data.id).then(({data}) => {
+          actions.receiveSourceData(data);
         })
         break;
 
